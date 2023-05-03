@@ -38,8 +38,6 @@ sealed class RotationSystem : IEcsRunSystem,IEcsInitSystem
             ref var rotateangle = ref rotationComponent.RotateDirection;
 
 
-          
-
             if (rotationComponent.ConstrainX)
             {
                 rotateangle.x = 0;

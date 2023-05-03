@@ -17,7 +17,7 @@ sealed class PlayerMouseInputSystem : IEcsRunSystem
 
         foreach (var i in directionFilter)
         {
-          
+
             ref var rotationComponent = ref directionFilter.Get2(i);
 
             ref var rotation = ref rotationComponent.RotateDirection;
@@ -36,3 +36,4 @@ sealed class PlayerMouseInputSystem : IEcsRunSystem
     }
 
 }
+

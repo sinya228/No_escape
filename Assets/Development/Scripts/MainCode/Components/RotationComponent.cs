@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -12,8 +11,6 @@ public struct RotationComponent
     public bool ConstrainY;
     public bool ConstrainZ;
 
-    
-
 
     public Transform ObjectTransform;
 
@@ -22,5 +19,4 @@ public struct RotationComponent
 
     [NonSerialized]
     public Vector3 RotateDirection;
-
 }

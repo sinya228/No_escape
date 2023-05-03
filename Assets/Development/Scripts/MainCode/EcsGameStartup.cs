@@ -28,7 +28,10 @@ public partial class EcsGameStartup : MonoBehaviour
     }
     private void AddSystems()
     {
-        systems.Add(new PlayerInputSystem()).
+        systems.
+            Add(new KeybordInitSystem()).
+            Add(new CursorLockSystem()).
+            Add(new PlayerInputSystem()).
             Add(new MovementSystem()).
             Add(new GravitySystem()).
             Add(new RotationSystem()).
