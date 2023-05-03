@@ -29,7 +29,8 @@ namespace MainPlayer
         private void AddSystems()
         {
             systems.Add(new PlayerInputSystem()).
-                Add(new MovementSystem()); 
+                Add(new MovementSystem())
+                ; 
 
         }
         private void AddOneFrames()

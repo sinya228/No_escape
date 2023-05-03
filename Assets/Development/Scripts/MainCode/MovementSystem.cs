@@ -17,7 +17,7 @@ namespace MainPlayer
                     ref var directionComponent = ref movableFilter.Get3(i);
 
                     ref var direction = ref directionComponent.Direction;
-                    ref var transform = ref modelComponent.ModelTransform;
+                    ref var transform = ref modelComponent.modelTransform;
 
                     ref var characterController = ref movableComponent.characterController;
                     ref var speed = ref movableComponent.speed;
@@ -28,5 +28,5 @@ namespace MainPlayer
 
             }
         }
-    }
+    }       
 }

@@ -6,6 +6,6 @@ namespace MainPlayer
     [Serializable]
     public struct ModelComponent
     {
-        public Transform ModelTransform;
+        public Transform modelTransform;
     }
 }

@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 namespace MainPlayer
 {
-        public struct DirectionComponent
-        {
-            public Vector3 Direction;
-        }
+    [Serializable]
+    public struct DirectionComponent
+    {
+        public Vector3 Direction;
+    }
  
 }
