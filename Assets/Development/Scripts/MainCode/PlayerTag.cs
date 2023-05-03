@@ -1,4 +1,7 @@
-﻿public partial class EcsGameStartup
+﻿namespace MainPlayer
 {
-    internal struct PlayerTag { }
+    public partial class EcsGameStartup
+    {
+        public struct PlayerTag { }
+    }
 }

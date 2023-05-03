@@ -1,16 +1,36 @@
 ﻿using Leopotam.Ecs;
-public partial class EcsGameStartup
+using UnityEngine;
+using static MainPlayer.EcsGameStartup;
+
+namespace MainPlayer
 {
+
     sealed class PlayerInputSystem : IEcsRunSystem
     {
-        private readonly EcsFilter<playerTag, DirectionComponent> directionComponent = null;
+        private readonly EcsFilter<PlayerTag, DirectionComponent> directionFilter = null;
+
+        private float moveX;
+        private float moveZ;
 
         public void Run()
         {
+            SetDirection();
+
             foreach (var i in directionFilter)
             {
-                ref var directionComponent = ref directionComponentFilter.Get2(i);
+                ref var directionComponent = ref directionFilter.Get2(i);
+                ref var direction = ref directionComponent.Direction;
+                direction.x = moveX; 
+                direction.z = moveZ;
             }
+
+        }
+
+        private void SetDirection()
+        {
+            moveX = Input.GetAxis("Horizontal");
+            moveZ = Input.GetAxis("Vertical");
         }
     }
+
 }

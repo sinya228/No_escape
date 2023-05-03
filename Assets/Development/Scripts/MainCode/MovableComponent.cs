@@ -1,9 +1,12 @@
-﻿using UnityEngine;
-public partial class EcsGameStartup
+﻿using System;
+using UnityEngine;
+
+namespace MainPlayer
 {
-    internal struct MovableComponent
+    [Serializable]
+    public struct MovableComponent
     {
-        public CharacterController CharacterController;
-        public float Speed;
+        public CharacterController characterController;
+        public float speed;
     }
 }

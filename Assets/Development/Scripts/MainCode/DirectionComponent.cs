@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
-public partial class EcsGameStartup
+namespace MainPlayer
 {
-    sealed partial class MovementSystem
-    {
-        internal struct DirectionComponent
+        public struct DirectionComponent
         {
             public Vector3 Direction;
         }
-    }
+ 
 }

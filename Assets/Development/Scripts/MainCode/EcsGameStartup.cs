@@ -2,46 +2,51 @@ using UnityEngine;
 using Leopotam.Ecs;
 using Voody.UniLeo;
 
-public partial class EcsGameStartup : MonoBehaviour
+namespace MainPlayer
 {
-    private EcsWorld world;
-    private EcsSystems systems;
-
-    private void Start()
+    public partial class EcsGameStartup : MonoBehaviour
     {
-        world = new EcsWorld();
-        systems = new EcsSystems(world);
+        private EcsWorld world;
+        private EcsSystems systems;
 
-        systems.ConvertScene();
+        private void Start()
+        {
+            world = new EcsWorld();
+            systems = new EcsSystems(world);
 
-        AddInjections();
-        AddOneFrames();
-        AddSystems();
+            systems.ConvertScene();
 
-        systems.Init();
-    }
-    private void AddInjections()
-    {
-        
-    }
-    private void AddSystems()
-    {
+            AddInjections();
+            AddOneFrames();
+            AddSystems();
 
-    }
-    private void AddOneFrames()
-    {
+            systems.Init();
+        }
+        private void AddInjections()
+        {
 
-    }
-    private void Update()
-    {
-        systems.Run();
-    }
-    private void OnDestroy()
-    {
-        if (systems == null) return;
-        systems.Destroy();
-        systems = null;
-        world.Destroy();
-        world = null;
+        }
+        private void AddSystems()
+        {
+            systems.Add(new PlayerInputSystem()).
+                Add(new MovementSystem()); 
+
+        }
+        private void AddOneFrames()
+        {
+
+        }
+        private void Update()
+        {
+            systems.Run();
+        }
+        private void OnDestroy()
+        {
+            if (systems == null) return;
+            systems.Destroy();
+            systems = null;
+            world.Destroy();
+            world = null;
+        }
     }
 }
