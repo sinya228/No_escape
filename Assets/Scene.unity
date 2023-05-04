@@ -684,6 +684,8 @@ GameObject:
   - component: {fileID: 1367487822}
   - component: {fileID: 1367487821}
   - component: {fileID: 1367487823}
+  - component: {fileID: 1367487824}
+  - component: {fileID: 1367487825}
   m_Layer: 0
   m_Name: CamX
   m_TagString: Untagged
@@ -752,3 +754,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value:
     Tag: 
+--- !u!114 &1367487824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367487817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3d0cd115b51954c9fd6daa87e579ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value:
+    CursorMode: 0
+--- !u!114 &1367487825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367487817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 849b13ff86335fb41aca86f09136745d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
