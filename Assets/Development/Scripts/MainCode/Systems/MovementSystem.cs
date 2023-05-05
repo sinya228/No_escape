@@ -21,7 +21,7 @@ sealed partial class MovementSystem : IEcsRunSystem
             ref var objectcontroller = ref movableComponent.ObjectController;         
             ref var objectspeed = ref movableComponent.ObjectSpeed;
 
-            var rawdirectoin = (objecttransform.forward * objectdirection.z) + (objecttransform.right * objectdirection.x);
+            var rawdirectoin = (objecttransform.forward * objectdirection.z) + (objecttransform.right * objectdirection.x)+ (objecttransform.up * objectdirection.y);
 
             objectcontroller.Move(rawdirectoin * objectspeed * Time.deltaTime);
         }

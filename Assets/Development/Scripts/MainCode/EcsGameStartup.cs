@@ -32,13 +32,15 @@ public partial class EcsGameStartup : MonoBehaviour
             Add(new MovementSystem()).
             Add(new GravitySystem()).
             Add(new RotationSystem()).
+            Add(new PlayerJumpInputSystem()).
+            Add(new JumpSystem()).
             Add(new PlayerMouseInputSystem())
-            ; 
+            ;
 
     }
     private void AddOneFrames()
     {
-
+        systems.OneFrame<JumpEvent>();
     }
     private void Update()
     {

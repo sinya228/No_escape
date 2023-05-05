@@ -1,4 +1,3 @@
 ﻿using Voody.UniLeo;
 
-
-    public class ModelProvider : MonoProvider<ModelComponent> { }
+public class ModelProvider : MonoProvider<ModelComponent> { }

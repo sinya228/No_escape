@@ -6,6 +6,7 @@ sealed partial class GravitySystem : IEcsRunSystem
     
     private readonly EcsFilter<MovableComponent> gravityFilter = null;
 
+    Vector3 garvityforce = Vector3.zero;
     public void Run()
     {
 
@@ -15,11 +16,26 @@ sealed partial class GravitySystem : IEcsRunSystem
         
        
             ref var objectcontroller = ref movableComponent.ObjectController;
-            ref var garvityforce = ref movableComponent.GravityForce;
 
-            Vector3 gravitydirectoin = new Vector3(0, -garvityforce, 0);
+            if (garvityforce.y < 0)
+            {
+                garvityforce = Vector3.zero;
+            }
 
-            objectcontroller.Move(gravitydirectoin*Time.deltaTime);
+
+            if (Input.GetKeyDown(KeyCode.Space)) 
+            {
+                garvityforce.y += Mathf.Sqrt(1000) * Time.deltaTime;
+
+            }
+
+
+
+            garvityforce.y += -10* Time.deltaTime;
+
+            objectcontroller.Move(garvityforce);
+
+          
         }
 
     }
