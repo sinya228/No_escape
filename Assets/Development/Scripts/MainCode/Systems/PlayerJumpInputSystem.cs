@@ -5,11 +5,24 @@ using UnityEngine;
 
 sealed class PlayerJumpInputSystem : IEcsRunSystem
 {
-    private readonly EcsFilter<PlayerComponent, JumpComponent> playerFilter = null;
+    private readonly EcsFilter<PlayerComponent, JumpComponent,GroungCheckComponent> playerFilter = null;
+
+    bool isgrounded;
     public void Run()
     {
 
-        if (!Input.GetKeyDown(KeyCode.Space)) return;
+
+        foreach (var i in playerFilter)
+        {
+            ref var groungcheckcomponent = ref playerFilter.Get3(i);
+            
+            if (!Input.GetKeyDown(KeyCode.Space) || !groungcheckcomponent.isGrounded)
+            {
+                return;
+            }
+
+        }
+
 
         foreach (var i in playerFilter)
         {
