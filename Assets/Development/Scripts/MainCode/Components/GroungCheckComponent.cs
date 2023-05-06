@@ -10,9 +10,13 @@ public struct GroungCheckComponent
     public LayerMask WallMask;
     public Transform GrounCheckTransform;
     public float GrounCheckTransRadius;
+
+
     
     [NonSerialized]
     public bool isGrounded;
+    [NonSerialized]
+    public Vector3 ObjectNormal;
 
 
 }

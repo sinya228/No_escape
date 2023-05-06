@@ -32,7 +32,8 @@ public partial class EcsGameStartup : MonoBehaviour
         systems.Add(new PlayerInputSystem()).
                 Add(new PlayerMouseInputSystem()).
                 Add(new PlayerJumpInputSystem()).
-                 Add(new GroundCheckSystem()).
+                Add(new GroundCheckSystem()).
+                //Add(new WallCheckSystem()).
                 Add(new MovementSystem()).
                 Add(new RotationSystem()).
                 Add(new JumpSystem()).
