@@ -25,8 +25,8 @@ sealed partial class GroundCheckSystem : IEcsRunSystem
             if (Physics.CheckSphere(objecttransform.position, grounchecksphereradius, layermask))
             {
                 groundcheckcomponent.isGrounded = true;
-                
-                
+               // Debug.Log("Ground");
+
             }
             else 
             {

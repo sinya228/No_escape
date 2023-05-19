@@ -3,7 +3,9 @@ using UnityEngine;
 
 sealed class JumpSystem : IEcsRunSystem
 {
-    private readonly EcsFilter<JumpEvent,JumpComponent,GravityComponent> jumpFilter = null;
+    private readonly EcsFilter<JumpEvent,JumpComponent,GravityComponent>.
+    Exclude<DoubleJumpBlockEvent> jumpFilter = null;
+
     public void Run()
     {
 

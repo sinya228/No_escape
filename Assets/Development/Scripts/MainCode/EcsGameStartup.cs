@@ -33,16 +33,23 @@ public partial class EcsGameStartup : MonoBehaviour
                 Add(new PlayerMouseInputSystem()).
                 Add(new PlayerJumpInputSystem()).
                 Add(new GroundCheckSystem()).
-                //Add(new WallCheckSystem()).
                 Add(new MovementSystem()).
                 Add(new RotationSystem()).
                 Add(new JumpSystem()).
-                Add(new GravitySystem());
-       
+                Add(new DoubleJumpSystem()).
+                Add(new UnblockDoubleJumpSystem()).
+                Add(new GravitySystem()).
+                Add(new DashSystem()).
+                Add(new CCDIKSystem()).
+                Add(new TriggerSkillSystem()).               
+                Add(new FlatDamageStatsUpdateSystem());
+
     }
     private void AddOneFrames()
     {
-        systems.OneFrame<JumpEvent>();
+        systems.OneFrame<JumpEvent>().
+        OneFrame<SkillTriggerEvent>().
+        OneFrame<StatsUpdateEvent>();
     }
     private void Update()
     {
