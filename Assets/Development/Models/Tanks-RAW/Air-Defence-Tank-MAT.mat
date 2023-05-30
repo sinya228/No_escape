@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Train-Truck-MAT
+  m_Name: Air-Defence-Tank-MAT
   m_Shader: {fileID: -6465566751694194690, guid: d1fadf564738d1341a1ef75e4c7feb2c, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -62,7 +62,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: b6b39a40d251fdb458a4a2cd4979880f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 088827b72f8bec04aa3c7f6a9bf76064, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
