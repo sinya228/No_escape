@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 55d72049e67a6f34e8e91430a311fd88
+guid: f30849aad9b39164ea590de3c8950262
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: CHK
-    second: {fileID: 2100000, guid: 9bad59562afa2784693ffc0ab25eac60, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

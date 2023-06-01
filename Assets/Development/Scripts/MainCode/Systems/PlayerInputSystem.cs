@@ -21,6 +21,11 @@ sealed class PlayerInputSystem : IEcsRunSystem
 
             direction = new Vector3(moveX,0,moveZ);
 
+            if (!Input.GetKeyDown(KeyCode.LeftShift)) return;
+
+            ref var entity = ref directionFilter.GetEntity(i);
+            entity.Get<DashEvent>();
+
         }
 
     }
