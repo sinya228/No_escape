@@ -1,8 +1,7 @@
 using UnityEngine;
 using Leopotam.Ecs;
 using Voody.UniLeo;
-
-
+using Assets.Development.Entity;
 
 public partial class EcsGameStartup : MonoBehaviour
 {
@@ -32,6 +31,7 @@ public partial class EcsGameStartup : MonoBehaviour
         systems.Add(new PlayerInputSystem()).
                 Add(new PlayerMouseInputSystem()).
                 Add(new PlayerJumpInputSystem()).
+                Add(new EntityInitializeSystem()).
                 Add(new GroundCheckSystem()).
                 Add(new MovementSystem()).
                 Add(new RotationSystem()).
@@ -41,15 +41,20 @@ public partial class EcsGameStartup : MonoBehaviour
                 Add(new GravitySystem()).
                 Add(new DashSystem()).
                 Add(new CCDIKSystem()).
-                Add(new TriggerSkillSystem()).               
-                Add(new FlatDamageStatsUpdateSystem());
+                Add(new TriggerSkillSystem()).
+                Add(new FlatDamageStatsUpdateSystem()).
+                Add(new RaycastSystem()).
+                Add(new DamageSystem()).
+                Add(new DebugSystem());
 
     }
     private void AddOneFrames()
     {
         systems.OneFrame<JumpEvent>().
         OneFrame<SkillTriggerEvent>().
-        OneFrame<StatsUpdateEvent>();
+        OneFrame<StatsUpdateEvent>().
+        //OneFrame<InitializeEntityRequestComponent>().
+        OneFrame<HitEvent>();
     }
     private void Update()
     {

@@ -25,3 +25,4 @@ sealed partial class TriggerSkillSystem : IEcsRunSystem
     }
 
 }
+
