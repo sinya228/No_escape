@@ -42,7 +42,12 @@ public partial class EcsGameStartup : MonoBehaviour
                 Add(new DashSystem()).
                 Add(new CCDIKSystem()).
                 Add(new TriggerSkillSystem()).               
-                Add(new FlatDamageStatsUpdateSystem());
+                Add(new PhysicalFlatDamageMerregeSystem()).
+                Add(new GlobalIncreaseDamageMerrigeSystem()).
+                Add(new CritMultiplierMerregeSystem()).
+                Add(new FlatCritMerregeSystem()).
+                Add(new TotalDamageCalcSystem()).
+                Add(new SkillDebugSystem());
 
     }
     private void AddOneFrames()
