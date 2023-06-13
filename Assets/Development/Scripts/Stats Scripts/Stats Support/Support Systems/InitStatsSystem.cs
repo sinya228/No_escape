@@ -22,4 +22,3 @@ sealed partial class InitStatsSystem : IEcsInitSystem
     }
 
 }
-
