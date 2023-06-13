@@ -1,13 +1,12 @@
 ﻿using Leopotam.Ecs;
 using UnityEngine;
-using System.Collections;
-
 
 sealed partial class MovementSystem : IEcsRunSystem
 {
   
 
     private readonly EcsFilter<MovableComponent,DirectionComponent> movableFilter = null;
+
     public void Run()
     {
         foreach (var i in movableFilter)
@@ -21,7 +20,7 @@ sealed partial class MovementSystem : IEcsRunSystem
             ref var objectcontroller = ref movableComponent.ObjectController;         
             ref var objectspeed = ref movableComponent.ObjectSpeed;
 
-            var rawdirectoin = (objecttransform.forward * objectdirection.z) + (objecttransform.right * objectdirection.x)+ (objecttransform.up * objectdirection.y);
+            Vector3 rawdirectoin = (objecttransform.forward * objectdirection.z) + (objecttransform.right * objectdirection.x)+ (objecttransform.up * objectdirection.y);
 
             objectcontroller.Move(rawdirectoin * objectspeed * Time.deltaTime);
         }
