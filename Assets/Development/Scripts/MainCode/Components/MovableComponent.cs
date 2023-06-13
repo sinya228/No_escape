@@ -11,6 +11,4 @@ public struct MovableComponent
     public CharacterController ObjectController;
     
     public float ObjectSpeed;
-
-
 }
