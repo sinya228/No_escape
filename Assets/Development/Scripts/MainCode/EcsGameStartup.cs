@@ -27,25 +27,27 @@ public partial class EcsGameStartup : MonoBehaviour
     }
     private void AddSystems()
     {
-
-        systems.Add(new PlayerInputSystem()).
-                Add(new PlayerMouseInputSystem()).
-                Add(new PlayerJumpInputSystem()).
-                Add(new EntityInitializeSystem()).
-                Add(new GroundCheckSystem()).
-                Add(new MovementSystem()).
-                Add(new RotationSystem()).
-                Add(new JumpSystem()).
-                Add(new DoubleJumpSystem()).
-                Add(new UnblockDoubleJumpSystem()).
-                Add(new GravitySystem()).
-                Add(new DashSystem()).
-                Add(new CCDIKSystem()).
-                Add(new TriggerSkillSystem()).
-                Add(new FlatDamageStatsUpdateSystem()).
-                Add(new RaycastSystem()).
-                Add(new DamageSystem()).
-                Add(new DebugSystem());
+        //Init должны иметь все системы которы инициализируют данные или нужны для получения доступа к объектам
+        systems.Add(new PlayerInputSystem()).//Система передвижения Player
+                Add(new KeybordInitSystem()).//Система инициализации клавиатуры
+                Add(new CursorLockSystem()).//Система отображения и управленияя курсором
+                Add(new PlayerMouseInputSystem()).//Система поворота на месте Player
+                Add(new PlayerJumpInputSystem()).//Система прыжков Player
+                Add(new EntityInitializeSystem()).//Система объектов
+                Add(new GroundCheckSystem()).//Система проверки поверхностей
+                Add(new MovementSystem()).//Система передвижения
+                Add(new RotationSystem()).//Система определения положения (Возможно в init)
+                Add(new JumpSystem()).//Система прыжка
+                Add(new DoubleJumpSystem()).//Система двойного прыжка
+                Add(new UnblockDoubleJumpSystem()).//Система разблокировки двойного прыжка(не уверен что это нужно)
+                Add(new GravitySystem()).//Система гравитации
+                Add(new DashSystem()).//Система скочка
+                Add(new CCDIKSystem()).//Система "решатель"(Нужно уточнение)
+                Add(new TriggerSkillSystem()).//Система активации скилов
+                Add(new FlatDamageStatsUpdateSystem()).//Система подсчета Flat Damage
+                Add(new RaycastSystem()).//Система лучей(для стрельбы)
+                Add(new DamageSystem()).//Система урона
+                Add(new DebugSystem());//Система отладочных сообщений
 
     }
     private void AddOneFrames()
