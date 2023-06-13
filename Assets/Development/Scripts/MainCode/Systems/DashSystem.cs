@@ -21,7 +21,8 @@ sealed class DashSystem : IEcsRunSystem
             if (DashTime <= 0)
             {              
                 DashTime = 0.1f;
-                entity.Del<DashEvent>();              
+                entity.Del<DashEvent>();
+                Debug.Log("Dashed");
                 return;
             }
 
