@@ -1,5 +1,0 @@
-internal struct SkillTriggerEvent
-{
-
-}
-
