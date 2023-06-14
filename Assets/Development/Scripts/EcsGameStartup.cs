@@ -1,8 +1,7 @@
 using UnityEngine;
 using Leopotam.Ecs;
 using Voody.UniLeo;
-
-
+using Assets.Development.Scripts.AI;
 
 public partial class EcsGameStartup : MonoBehaviour
 {
@@ -80,7 +79,15 @@ public partial class EcsGameStartup : MonoBehaviour
                
                 Add(new UIDrawMessegeBoxSystem()).
 
-                Add(new RenderMessegeSystem());
+                Add(new RenderMessegeSystem()).
+
+                //Система передвижения AI
+                Add(new GroundMovementAISystem()).
+
+                //Система инициализации клавиатуры
+                Add(new KeybordInitSystem()).
+                //Система отображения мыши
+                Add(new CursorLockSystem());
 
 
 
