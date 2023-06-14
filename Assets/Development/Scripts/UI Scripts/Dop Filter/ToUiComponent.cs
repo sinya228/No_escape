@@ -1,4 +1,4 @@
-public struct ToUiComponent
+public struct ToUIComponent
 {
     
 }

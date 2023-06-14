@@ -6,22 +6,12 @@ using System.Collections.Generic;
 sealed class TotalPhysicalDamageCalcSystem : IEcsRunSystem
 {
 
-    private readonly EcsFilter<AllStatsComponent, StatsUpdateEvent> AllStatsFilter = null;
-
-    private readonly EcsFilter<PhysicalFlatDamageComponent, AllStatsComponent> PhysicalFlatFilter = null;
-
-    private readonly EcsFilter<GlobalIncreaseDamageComponent, AllStatsComponent> GlobalIncreaseFilter = null;
-
-    private readonly EcsFilter<FlatCritComponent, AllStatsComponent> FlatCritFilter = null;
-
-    private readonly EcsFilter<CritMultiplierComponent, AllStatsComponent> CritMultiplierFilter = null;
-
-    private readonly EcsFilter<UIDrawMesegesComponent,UIMessegesListComponent> DrawMesegesFilter = null;
+    
 
     public void Run()
     {
 
-        foreach (var j in AllStatsFilter)
+       /* foreach (var j in AllStatsFilter)
         {
           
             float physicaltotaldamage = 0f;
@@ -115,7 +105,7 @@ sealed class TotalPhysicalDamageCalcSystem : IEcsRunSystem
                 }
                 DrawMesegesFilter.Get2(i).MessegeList.Add(messege);
             }
-        }
+        }*/
     }
 
 }

@@ -2,9 +2,9 @@ using Leopotam.Ecs;
 
 sealed class IncreasedMovementSpeedMerregeSystem : IEcsRunSystem
 {
-    private readonly EcsFilter<IncreasedMovementSpeedComponent>.Exclude<AllStatsComponent> MovementSpeedFilter = null;
+    private readonly EcsFilter<IncreasedMovementSpeedComponent,StatGroopIndex>.Exclude<AllStatsComponent> MovementSpeedFilter = null;
 
-    private readonly EcsFilter<AllStatsComponent, StatsUpdateEvent> AllStatsFilter = null;
+    private readonly EcsFilter<AllStatsComponent, AddNewStatEvent> AllStatsFilter = null;
 
     public void Run()
     {
@@ -15,25 +15,20 @@ sealed class IncreasedMovementSpeedMerregeSystem : IEcsRunSystem
             int StatSum = 0;
 
             ref var allstats = ref AllStatsFilter.Get1(i);
-
-            ref var entity = ref AllStatsFilter.GetEntity(i);
-
-
-
+         
             foreach (var j in MovementSpeedFilter)
             {
 
-                ref var increasedmovementspeedstat = ref MovementSpeedFilter.Get1(j);
-
-                if (allstats.Index == increasedmovementspeedstat.StatsIndex)
+                if (allstats.Index == MovementSpeedFilter.Get2(j).StatsIndex)
                 {
-                    StatSum += increasedmovementspeedstat.IncreasedMovementSpeed;
-                    entity.Get<IncreasedMovementSpeedComponent>().IncreasedMovementSpeed = StatSum;
+                    StatSum += MovementSpeedFilter.Get1(j).IncreasedMovementSpeed;
+                    AllStatsFilter.GetEntity(i).Get<IncreasedMovementSpeedComponent>().IncreasedMovementSpeed = StatSum;
                 }
 
             }
 
-        
+           
+
         }
 
     }

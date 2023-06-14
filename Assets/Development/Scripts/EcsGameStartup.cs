@@ -46,48 +46,38 @@ public partial class EcsGameStartup : MonoBehaviour
                 //сссд инверсная кинематика(нужно для анимвации)
                 Add(new CCDIKSystem()).
 
-                //вешает на все ентити типа AllStatsComponent UpdateComponent что тригерит инициализацию стат
+                Add(new RandomInputSystem()).
+                //вешает на все ентити которые содержат AllStatsComponent StatsUpdateEvent и AddNewStatEvent что тригерит инициализацию стат
                 Add(new InitStatsSystem()).
+
+                //Merrige системы собирают со всех обектов статы определенного типа, суммируют их, и записывают новую стату в ентити которая содержит AllStatsComponent проверяя ее индекс
 
                 Add(new FlatHealthMerrigeSystem()).
 
-                //считает все хп
-                Add(new TotalHealthCalcSystem()).
-
                 Add(new FlatMovementSpeedMerregeSystem()).
                 Add(new IncreasedMovementSpeedMerregeSystem()).
+              
 
-                //считает всю скорость передвижения
-                Add(new TotalMovementSpeedCalcSystem()).
+                //GetTotal системы проверяют есть ли на ентити которая содержит AllStatsComponent обект с "плоской" статой, и если есть добавляет на него TotalComponent этой статы
+                //остальные Total системы с препиской тотал ищут AllStatsComponent и TotalComponent и произвоят опперации с TotalComponent
+                Add(new GetTotalHealthSystem()).
+                
+                Add(new GetTotalMovementSpeedSystem()).              
+                Add(new IncreasedTotalMovementSpeedSystem()).
 
-                Add(new PhysicalFlatDamageMerregeSystem()).
-                Add(new GlobalIncreaseDamageMerrigeSystem()).
-                Add(new CritMultiplierMerregeSystem()).
-                Add(new FlatCritMerregeSystem()).
+                //убирает со всех ентити которые содержат AllStatsComponent StatsUpdateEvent и AddNewStatEvent что останавлтивает инициализацию стат
+                Add(new EndStatsInitSystem()).
 
-                //считает весь физический урон
-                Add(new TotalPhysicalDamageCalcSystem()).
 
-                //убирает со всех ентити типа AllStatsComponent UpdateComponent что останавлтивает обновление стат
-                Add(new EndStatsUpdateSystem()).
 
-                //вешает на все ентити типа UiDrawComponent UpdateComponent что тригерит инициализацию стат
+           
                 Add(new InitUIDrawSystem()).
 
-                Add(new RandomInputSystem()).
+                Add(new RenderStatsUISystem()).
 
-               
-               
                 Add(new UIDrawMessegeBoxSystem()).
 
                 Add(new RenderMessegeSystem());
-
-
-
-
-
-
-
 
     }
     private void AddOneFrames()

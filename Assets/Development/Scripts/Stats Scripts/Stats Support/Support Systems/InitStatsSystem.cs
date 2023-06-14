@@ -14,8 +14,9 @@ sealed partial class InitStatsSystem : IEcsInitSystem
         {
                          
                 ref var entity = ref ActiveSkillFilter.GetEntity(i);
+                entity.Get<AddNewStatEvent>();
                 entity.Get<StatsUpdateEvent>();
-         
+              
 
         }
      

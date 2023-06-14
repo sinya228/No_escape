@@ -1,7 +1,6 @@
 using Leopotam.Ecs;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 
 sealed class UIDrawMessegeBoxSystem : IEcsRunSystem
@@ -9,7 +8,7 @@ sealed class UIDrawMessegeBoxSystem : IEcsRunSystem
 
     private EcsWorld _world;
 
-    private readonly EcsFilter<UIDrawMesegesComponent, UIMessegesListComponent, UIDrawEvent> UIDrawFilter = null;
+    private readonly EcsFilter<UIDrawMesegesComponent, UIMessegesListComponent, UIComponent, UIDrawEvent> UIDrawFilter = null;
     
     private readonly EcsFilter<UITextBoxComponent,UIComponent> UIDestroyFilter = null;
 
@@ -20,21 +19,23 @@ sealed class UIDrawMessegeBoxSystem : IEcsRunSystem
       
         foreach (var i in UIDrawFilter)
         {
+           
             
-            DestroyMessegeBox(UIDrawFilter.Get2(i).DrawIndex);
+            DestroyMessegeBox(UIDrawFilter.Get3(i).UIIndex);
 
-            if (UIDrawFilter.Get1(i).MessegeBoxList == null)
+            if (UIDrawFilter.Get2(i).MessegeList == null)
             {
-                UIDrawFilter.Get1(i).MessegeBoxList = new List<GameObject>();
+                UIDrawFilter.Get2(i).MessegeList = new List<string>();
                 
             }
              
 
-            DrawMessegeBox(UIDrawFilter.Get2(i).DrawIndex, UIDrawFilter.Get2(i).MessegeList, UIDrawFilter.Get1(i).MessegeBoxPrefab, UIDrawFilter.Get1(i).MessegeBoxParent);
+            DrawMessegeBox(UIDrawFilter.Get3(i).UIIndex, UIDrawFilter.Get2(i).MessegeList, UIDrawFilter.Get1(i).MessegeBoxPrefab, UIDrawFilter.Get1(i).MessegeBoxParent);
 
-                             
+            UIDrawFilter.Get2(i).MessegeList.Clear();
+
             UIDrawFilter.GetEntity(i).Del<UIDrawEvent>();
-            
+        
         }    
 
     }
@@ -45,13 +46,15 @@ sealed class UIDrawMessegeBoxSystem : IEcsRunSystem
         {
 
             var messegebox = _world.NewEntity();
-            
+
+            messegebox.Get<UIDrawEvent>();
+
             messegebox.Get<UIComponent>().UIIndex = index;
 
             messegebox.Get<UITextComponent>().UIText = messege;
 
             messegebox.Get<UITextBoxComponent>().UITextBox = Object.Instantiate(BoxPrefab, BoxParent);
-           
+        
         }
        
     }
@@ -66,7 +69,7 @@ sealed class UIDrawMessegeBoxSystem : IEcsRunSystem
                
                 Object.Destroy(UIDestroyFilter.Get1(i).UITextBox);
                 UIDestroyFilter.GetEntity(i).Destroy();
-            
+               
             }
 
         }

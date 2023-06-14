@@ -2,4 +2,3 @@
 
 public class AllStatsProvider : MonoProvider<AllStatsComponent> { }
 
-

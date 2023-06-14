@@ -4,7 +4,6 @@ using System;
 public struct FlatMovementSpeedComponent
 {
 
-    public int StatsIndex;
     public int FlatMovementSpeed;
     public int MovementSpeedTier;
 

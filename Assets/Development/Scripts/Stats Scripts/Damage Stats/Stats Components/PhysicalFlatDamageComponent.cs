@@ -4,7 +4,6 @@ using System;
 public struct PhysicalFlatDamageComponent 
 {
 
-    public int StatsIndex;
     public int FlatDamage;
     public int FlatDamageTier;
 

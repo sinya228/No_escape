@@ -1,12 +1,13 @@
 using Leopotam.Ecs;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 sealed class FlatHealthMerrigeSystem : IEcsRunSystem
 {
-    private readonly EcsFilter<FlatHealthComponent>.Exclude<AllStatsComponent> FlatHealthFilter = null;
+    private readonly EcsFilter<FlatHealthComponent,StatGroopIndex>.Exclude<AllStatsComponent> FlatHealthFilter = null;
 
-    private readonly EcsFilter<AllStatsComponent, StatsUpdateEvent> AllStatsFilter = null;
+    private readonly EcsFilter<AllStatsComponent, AddNewStatEvent> AllStatsFilter = null;
 
     public void Run()
     {
@@ -17,23 +18,20 @@ sealed class FlatHealthMerrigeSystem : IEcsRunSystem
             int StatSum = 0;
 
             ref var allstats = ref AllStatsFilter.Get1(i);
-
-            ref var entity = ref AllStatsFilter.GetEntity(i);
-
-
-
+        
             foreach (var j in FlatHealthFilter)
             {
-
-                ref var flathealthstat = ref FlatHealthFilter.Get1(j);
-
-                if (allstats.Index == flathealthstat.StatsIndex)
+            
+                if (allstats.Index == FlatHealthFilter.Get2(j).StatsIndex)
                 {
-                    StatSum += flathealthstat.FlatHealth;
-                    entity.Get<FlatHealthComponent>().FlatHealth = StatSum;
+
+                    StatSum += FlatHealthFilter.Get1(j).FlatHealth;
+                    AllStatsFilter.GetEntity(i).Get<FlatHealthComponent>().FlatHealth = StatSum;
                 }
 
-            }       
+            }
+
+           
 
         }
 

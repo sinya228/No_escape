@@ -1,7 +1,7 @@
 using Leopotam.Ecs;
 using UnityEngine;
 
-public class EndStatsUpdateSystem : IEcsRunSystem
+public class EndStatsInitSystem : IEcsRunSystem
 {
     private readonly EcsFilter<AllStatsComponent, StatsUpdateEvent> AllStatsFilter = null;
     public void Run()
@@ -10,6 +10,7 @@ public class EndStatsUpdateSystem : IEcsRunSystem
         {
             ref var entity = ref AllStatsFilter.GetEntity(i);
             entity.Del<StatsUpdateEvent>();
+            entity.Del<AddNewStatEvent>();
         }
     }
 
