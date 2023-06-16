@@ -1,5 +1,6 @@
 using Leopotam.Ecs;
 using UnityEngine;
+
 sealed class IncreasedTotalMovementSpeedSystem : IEcsRunSystem
 {
 
@@ -14,9 +15,7 @@ sealed class IncreasedTotalMovementSpeedSystem : IEcsRunSystem
             float increasedmovementspeed = TotalMSFilter.Get2(i).IncreasedMovementSpeed;
 
             TotalMSFilter.Get1(i).MovementSpeed *= (1 + increasedmovementspeed * 0.01f);
-
-
-            Debug.Log(TotalMSFilter.Get1(i).MovementSpeed);
+      
         }
 
     }

@@ -7,7 +7,8 @@ sealed class RandomInputSystem : IEcsRunSystem
 
 
     private readonly EcsFilter<UIDrawMesegesComponent> UIDrawFilter = null;
-    private readonly EcsFilter<AllStatsComponent> StatsFrawFilter = null;
+    private readonly EcsFilter<StatGroopComponent> StatsFrawFilter = null;
+    private readonly EcsFilter<ItemComponent> ItemFilter = null;
 
     public void Run()
     { 
@@ -34,7 +35,22 @@ sealed class RandomInputSystem : IEcsRunSystem
             if (Input.GetKeyDown(KeyCode.Y))
             {
 
-                entity.Get<ToUIComponent>();
+                entity.Get<StatsToUIComponent>();
+                entity.Get<StatsUpdateEvent>();
+                entity.Get<AddNewStatEvent>();
+            }
+
+        }
+
+        foreach (var i in ItemFilter)
+        {
+
+            ref var entity = ref ItemFilter.GetEntity(i);
+
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+
+                entity.Get<UndefinedComponent>();
 
             }
 

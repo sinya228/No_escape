@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-sealed class UIDrawMessegeBoxSystem : IEcsRunSystem
+sealed class MessegeBoxDrawUISystem : IEcsRunSystem
 {
 
-    private EcsWorld _world;
+    private readonly EcsWorld _world = null;
 
     private readonly EcsFilter<UIDrawMesegesComponent, UIMessegesListComponent, UIComponent, UIDrawEvent> UIDrawFilter = null;
     
@@ -54,6 +54,8 @@ sealed class UIDrawMessegeBoxSystem : IEcsRunSystem
             messegebox.Get<UITextComponent>().UIText = messege;
 
             messegebox.Get<UITextBoxComponent>().UITextBox = Object.Instantiate(BoxPrefab, BoxParent);
+
+           
         
         }
        

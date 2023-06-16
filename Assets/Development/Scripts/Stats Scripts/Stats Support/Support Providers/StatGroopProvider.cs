@@ -1,4 +1,4 @@
 ﻿using Voody.UniLeo;
 
-public class StatGroopProvider : MonoProvider<StatGroopIndex> { }
+public class StatGroopProvider : MonoProvider<StatGroopComponent> { }
 

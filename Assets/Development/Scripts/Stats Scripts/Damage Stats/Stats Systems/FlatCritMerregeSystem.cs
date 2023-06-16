@@ -1,36 +1,61 @@
 using Leopotam.Ecs;
+using System.Collections.Generic;
 
 sealed class FlatCritMerregeSystem : IEcsRunSystem
 {
-    
+       
+    private readonly EcsFilter<FlatCritComponent, StatGroopComponent>.Exclude<AllStatsComponent> FlatMultiplierFilter = null;
+
+    private readonly EcsFilter<AllStatsComponent, StatGroopComponent, AddNewStatEvent> AllStatsFilter = null;
+
+    private readonly Dictionary<int, int> critmodifiers = new Dictionary<int, int>();
 
     public void Run()
     {
 
-        /*foreach (var i in AllStatsFilter)
+        foreach (var i in FlatMultiplierFilter)
         {
 
-            int StatSum = 0;
+            int index = FlatMultiplierFilter.Get2(i).StatsIndex;
 
-            ref var allstats = ref AllStatsFilter.Get1(i);
-
-            foreach (var j in FlatCritFilter)
+            if (critmodifiers.TryGetValue(index, out int currentsum))
             {
 
-                ref var flatcritstat = ref FlatCritFilter.Get1(j);
+                critmodifiers[index] = currentsum + FlatMultiplierFilter.Get1(i).FlatCrit;
 
-                if (allstats.Index == flatcritstat.StatsIndex)
-                {
-                    StatSum += flatcritstat.FlatCrit;
-                  
-                }
+            }
+            else
+            {
+
+                critmodifiers.Add(index, FlatMultiplierFilter.Get1(i).FlatCrit);
 
             }
 
-            AllStatsFilter.GetEntity(i).Get<FlatCritComponent>().FlatCrit = StatSum;
+        }
 
-        }*/
+
+
+        foreach (var i in AllStatsFilter)
+        {
+            AllStatsFilter.GetEntity(i).Del<FlatCritComponent>();
+
+            int index = AllStatsFilter.Get2(i).StatsIndex;
+
+            if (critmodifiers.TryGetValue(index, out int critsum))
+            {
+
+                AllStatsFilter.GetEntity(i).Get<FlatCritComponent>().FlatCrit = critsum;
+
+            }
+
+        }
+
+        critmodifiers.Clear();
 
     }
 
 }
+    
+    
+
+

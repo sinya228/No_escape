@@ -4,7 +4,7 @@ using UnityEngine;
 sealed class GetTotalHealthSystem: IEcsRunSystem
 {
 
-    private readonly EcsFilter<FlatHealthComponent, AllStatsComponent, StatsUpdateEvent> FlatHealthFilter = null;
+    private readonly EcsFilter<FlatHealthComponent, AllStatsComponent, StatGroopComponent, StatsUpdateEvent> FlatHealthFilter = null;
 
     public void Run()
     {
@@ -16,7 +16,7 @@ sealed class GetTotalHealthSystem: IEcsRunSystem
 
             ref var entity = ref FlatHealthFilter.GetEntity(i);
 
-            entity.Get<TotalHealthComponent>().StatsIndex = FlatHealthFilter.Get2(i).Index;
+            entity.Get<TotalHealthComponent>().StatsIndex = FlatHealthFilter.Get3(i).StatsIndex;
             entity.Get<TotalHealthComponent>().Health = totalhealth;
           
         }

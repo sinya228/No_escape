@@ -1,39 +1,55 @@
 using Leopotam.Ecs;
 using System.Collections.Generic;
-using UnityEngine;
-
 
 sealed class FlatHealthMerrigeSystem : IEcsRunSystem
 {
-    private readonly EcsFilter<FlatHealthComponent,StatGroopIndex>.Exclude<AllStatsComponent> FlatHealthFilter = null;
+    private readonly EcsFilter<FlatHealthComponent,StatGroopComponent>.Exclude<AllStatsComponent> FlatHealthFilter = null;
 
-    private readonly EcsFilter<AllStatsComponent, AddNewStatEvent> AllStatsFilter = null;
+    private readonly EcsFilter<AllStatsComponent, StatGroopComponent, AddNewStatEvent> AllStatsFilter = null;
+
+    private readonly Dictionary<int, int> healthmodifiers = new Dictionary<int, int>();
 
     public void Run()
     {
 
-        foreach (var i in AllStatsFilter)
+        foreach (var i in FlatHealthFilter)
         {
+         
+            int index = FlatHealthFilter.Get2(i).StatsIndex;
 
-            int StatSum = 0;
-
-            ref var allstats = ref AllStatsFilter.Get1(i);
-        
-            foreach (var j in FlatHealthFilter)
+            if (healthmodifiers.TryGetValue(index, out int currentsum))
             {
-            
-                if (allstats.Index == FlatHealthFilter.Get2(j).StatsIndex)
-                {
 
-                    StatSum += FlatHealthFilter.Get1(j).FlatHealth;
-                    AllStatsFilter.GetEntity(i).Get<FlatHealthComponent>().FlatHealth = StatSum;
-                }
+                healthmodifiers[index] = currentsum + FlatHealthFilter.Get1(i).FlatHealth;
 
             }
+            else
+            {
 
-           
+                healthmodifiers.Add(index, FlatHealthFilter.Get1(i).FlatHealth);
 
+            }
+        
         }
+
+
+
+        foreach (var i in AllStatsFilter)
+        {
+            AllStatsFilter.GetEntity(i).Del<FlatHealthComponent>();
+
+            int index = AllStatsFilter.Get2(i).StatsIndex;
+            
+            if (healthmodifiers.TryGetValue(index, out int healthsum))
+            {
+
+                AllStatsFilter.GetEntity(i).Get<FlatHealthComponent>().FlatHealth = healthsum;
+                              
+            }
+       
+        }
+
+        healthmodifiers.Clear();
 
     }
 

@@ -2,7 +2,7 @@ using Leopotam.Ecs;
 using TMPro;
 using UnityEngine;
 
-sealed class RenderMessegeSystem : IEcsRunSystem
+sealed class RenderMessegeUISystem : IEcsRunSystem
 {
 
     private readonly EcsFilter<UITextBoxComponent,UITextComponent,UIDrawEvent> RenderMessegeFilter = null;
@@ -13,8 +13,7 @@ sealed class RenderMessegeSystem : IEcsRunSystem
         foreach (var i in RenderMessegeFilter)
         {
             RenderMessegeFilter.Get1(i).UITextBox.GetComponentInChildren<TextMeshProUGUI>().text = RenderMessegeFilter.Get2(i).UIText;
-            Debug.Log("Updated");
-            RenderMessegeFilter.GetEntity(i).Del<UIDrawEvent>();
+            RenderMessegeFilter.GetEntity(i).Del<UIDrawEvent>();               
         }
 
     }

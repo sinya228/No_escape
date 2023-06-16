@@ -1,36 +1,62 @@
 using Leopotam.Ecs;
+using System.Collections.Generic;
 
 sealed class PhysicalFlatDamageMerregeSystem : IEcsRunSystem
 {
-   
+
+    private readonly EcsFilter<PhysicalFlatDamageComponent, StatGroopComponent>.Exclude<AllStatsComponent> FlatDamageFilter = null;
+
+    private readonly EcsFilter<AllStatsComponent, StatGroopComponent, AddNewStatEvent> AllStatsFilter = null;
+
+    private readonly Dictionary<int, int> damagemodifiers = new Dictionary<int, int>();
 
     public void Run()
     {
-    
-        /*foreach (var i in AllStatsFilter)
+
+        foreach (var i in FlatDamageFilter)
         {
 
-            int StatSum = 0;
-          
-            ref var allstats = ref AllStatsFilter.Get1(i);
-            
-            foreach (var j in FlatDamageFilter)
+            int index = FlatDamageFilter.Get2(i).StatsIndex;
+
+            if (damagemodifiers.TryGetValue(index, out int currentsum))
             {
 
-                ref var flatdamagestat = ref FlatDamageFilter.Get1(j);
+                damagemodifiers[index] = currentsum + FlatDamageFilter.Get1(i).FlatDamage;
 
-                if (allstats.Index == flatdamagestat.StatsIndex) 
-                {
-                    StatSum += flatdamagestat.FlatDamage;                
-                }
+            }
+            else
+            {
+
+                damagemodifiers.Add(index, FlatDamageFilter.Get1(i).FlatDamage);
 
             }
 
-            AllStatsFilter.GetEntity(i).Get<PhysicalFlatDamageComponent>().FlatDamage = StatSum;
+        }
 
-        }*/
-        
+
+
+        foreach (var i in AllStatsFilter)
+        {
+            AllStatsFilter.GetEntity(i).Del<PhysicalFlatDamageComponent>();
+
+            int index = AllStatsFilter.Get2(i).StatsIndex;
+
+            if (damagemodifiers.TryGetValue(index, out int damagesum))
+            {
+
+                AllStatsFilter.GetEntity(i).Get<PhysicalFlatDamageComponent>().FlatDamage = damagesum;
+
+            }
+
+        }
+
+        damagemodifiers.Clear();
+
     }
 
 }
+ 
+
+
+
 

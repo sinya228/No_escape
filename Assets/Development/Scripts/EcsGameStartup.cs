@@ -9,6 +9,7 @@ public partial class EcsGameStartup : MonoBehaviour
     private EcsWorld world;
     private EcsSystems systems;
 
+    [SerializeField] private AllItemsStatsSO Stats;
     private void Start()
     {
         world = new EcsWorld();
@@ -24,7 +25,7 @@ public partial class EcsGameStartup : MonoBehaviour
     }
     private void AddInjections()
     {
-
+        systems.Inject(Stats);
     }
     private void AddSystems()
     {
@@ -47,16 +48,46 @@ public partial class EcsGameStartup : MonoBehaviour
                 Add(new CCDIKSystem()).
 
                 Add(new RandomInputSystem()).
+
+
+
+                //ищет все ентити которые содержат ItemComponent и добавляет на них ItemsStatsDictionaryComponent в зависимости от базы предмета
+                Add(new InitItemGenerationSystem()).
+
+
+                //ItemGeneration системы выбирают из ItemsStatsDictionaryComponent нужную стату по индексу и вешают их на предмет
+                Add(new ItemIncreaseGlobalDamageGenerationSystem()).
+
+                Add(new ItemFlatHealthGenerationSystem()).
+
+                Add(new ItemIncreasedMovementSpeedGenerationSystem()).
+
+                
+                Add(new EndItemGenerationSystem()).
+                //убирает со всех ентити которые содержат ItemComponent UndefinedComponent что останавлтивает генерацию стат на предмете
+
+
+
                 //вешает на все ентити которые содержат AllStatsComponent StatsUpdateEvent и AddNewStatEvent что тригерит инициализацию стат
                 Add(new InitStatsSystem()).
 
+                
+                
                 //Merrige системы собирают со всех обектов статы определенного типа, суммируют их, и записывают новую стату в ентити которая содержит AllStatsComponent проверяя ее индекс
-
                 Add(new FlatHealthMerrigeSystem()).
 
                 Add(new FlatMovementSpeedMerregeSystem()).
                 Add(new IncreasedMovementSpeedMerregeSystem()).
-              
+
+                Add(new PhysicalFlatDamageMerregeSystem()).
+                
+                Add(new GlobalIncreaseDamageMerrigeSystem()).
+                  
+                Add(new FlatCritMerregeSystem()).
+                 
+                Add(new CritMultiplierMerregeSystem()).
+
+
 
                 //GetTotal системы проверяют есть ли на ентити которая содержит AllStatsComponent обект с "плоской" статой, и если есть добавляет на него TotalComponent этой статы
                 //остальные Total системы с препиской тотал ищут AllStatsComponent и TotalComponent и произвоят опперации с TotalComponent
@@ -68,16 +99,13 @@ public partial class EcsGameStartup : MonoBehaviour
                 //убирает со всех ентити которые содержат AllStatsComponent StatsUpdateEvent и AddNewStatEvent что останавлтивает инициализацию стат
                 Add(new EndStatsInitSystem()).
 
-
-
-           
-                Add(new InitUIDrawSystem()).
+        
 
                 Add(new RenderStatsUISystem()).
 
-                Add(new UIDrawMessegeBoxSystem()).
+                Add(new MessegeBoxDrawUISystem()).
 
-                Add(new RenderMessegeSystem());
+                Add(new RenderMessegeUISystem());
 
     }
     private void AddOneFrames()

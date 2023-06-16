@@ -1,35 +1,60 @@
 using Leopotam.Ecs;
+using System.Collections.Generic;
 
 sealed class GlobalIncreaseDamageMerrigeSystem : IEcsRunSystem
 {
  
+    private readonly EcsFilter<GlobalIncreaseDamageComponent, StatGroopComponent>.Exclude<AllStatsComponent> IncreaseDamageFilter = null;
+
+    private readonly EcsFilter<AllStatsComponent, StatGroopComponent, AddNewStatEvent> AllStatsFilter = null;
+
+    private readonly Dictionary<int, int> damagemodifiers = new Dictionary<int, int>();
 
     public void Run()
     {
 
-        /*foreach (var i in AllStatsFilter)
+        foreach (var i in IncreaseDamageFilter)
         {
 
-            int StatSum = 0;
+            int index = IncreaseDamageFilter.Get2(i).StatsIndex;
 
-            ref var allstats = ref AllStatsFilter.Get1(i);
-
-            foreach (var j in IncreaseDamageFilter)
+            if (damagemodifiers.TryGetValue(index, out int currentsum))
             {
 
-                ref var increasedamagestat = ref IncreaseDamageFilter.Get1(j);
+                damagemodifiers[index] = currentsum + IncreaseDamageFilter.Get1(i).IncreaseDamage;
 
-                if (allstats.Index == increasedamagestat.StatsIndex)
-                {
-                    StatSum += increasedamagestat.IncreaseDamage;               
-                }
+            }
+            else
+            {
+
+                damagemodifiers.Add(index, IncreaseDamageFilter.Get1(i).IncreaseDamage);
 
             }
 
-            AllStatsFilter.GetEntity(i).Get<GlobalIncreaseDamageComponent>().IncreaseDamage = StatSum;
+        }
 
-        }*/
+
+
+        foreach (var i in AllStatsFilter)
+        {
+            AllStatsFilter.GetEntity(i).Del<GlobalIncreaseDamageComponent>();
+
+            int index = AllStatsFilter.Get2(i).StatsIndex;
+
+            if (damagemodifiers.TryGetValue(index, out int damagesum))
+            {
+
+                AllStatsFilter.GetEntity(i).Get<GlobalIncreaseDamageComponent>().IncreaseDamage = damagesum;
+
+            }
+
+        }
+
+        damagemodifiers.Clear();
 
     }
 
 }
+
+
+
