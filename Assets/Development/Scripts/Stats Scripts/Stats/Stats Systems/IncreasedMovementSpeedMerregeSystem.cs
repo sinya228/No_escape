@@ -5,7 +5,7 @@ sealed class IncreasedMovementSpeedMerregeSystem : IEcsRunSystem
 {
     private readonly EcsFilter<IncreasedMovementSpeedComponent,StatGroopComponent>.Exclude<AllStatsComponent> MovementSpeedFilter = null;
 
-    private readonly EcsFilter<AllStatsComponent, StatGroopComponent, AddNewStatEvent> AllStatsFilter = null;
+    private readonly EcsFilter<StatGroopComponent, AllStatsComponent,StatsUpdateEvent> AllStatsFilter = null;
 
     private readonly Dictionary<int, int> movementspeedmodifiers = new Dictionary<int, int>();
 
@@ -19,15 +19,11 @@ sealed class IncreasedMovementSpeedMerregeSystem : IEcsRunSystem
 
             if (movementspeedmodifiers.TryGetValue(index, out int currentsum))
             {
-
                 movementspeedmodifiers[index] = currentsum + MovementSpeedFilter.Get1(i).IncreasedMovementSpeed;
-
             }
             else
             {
-
                 movementspeedmodifiers.Add(index, MovementSpeedFilter.Get1(i).IncreasedMovementSpeed);
-
             }
 
         }
@@ -39,13 +35,11 @@ sealed class IncreasedMovementSpeedMerregeSystem : IEcsRunSystem
 
             AllStatsFilter.GetEntity(i).Del<IncreasedMovementSpeedComponent>();
 
-            int index = AllStatsFilter.Get2(i).StatsIndex;
+            int index = AllStatsFilter.Get1(i).StatsIndex;
 
             if (movementspeedmodifiers.TryGetValue(index, out int movementspeedsum))
             {
-
                 AllStatsFilter.GetEntity(i).Get<IncreasedMovementSpeedComponent>().IncreasedMovementSpeed= movementspeedsum;
-
             }
 
         }

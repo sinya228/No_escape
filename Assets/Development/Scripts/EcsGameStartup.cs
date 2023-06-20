@@ -1,6 +1,7 @@
 using UnityEngine;
 using Leopotam.Ecs;
 using Voody.UniLeo;
+using Leopotam.Ecs.Ui.Systems;
 
 
 
@@ -8,6 +9,8 @@ public partial class EcsGameStartup : MonoBehaviour
 {
     private EcsWorld world;
     private EcsSystems systems;
+
+    [SerializeField] EcsUiEmitter _uiEmitter;
 
     [SerializeField] private AllItemsStatsSO Stats;
     private void Start()
@@ -20,6 +23,8 @@ public partial class EcsGameStartup : MonoBehaviour
         AddInjections();
         AddOneFrames();
         AddSystems();
+
+        systems.InjectUi(_uiEmitter);
 
         systems.Init();
     }
@@ -47,73 +52,87 @@ public partial class EcsGameStartup : MonoBehaviour
                 //сссд инверсная кинематика(нужно для анимвации)
                 Add(new CCDIKSystem()).
 
+
+                //использую как дебаг систему
+
+
+                //UI взаимодействия с кнопками
+                Add(new AreaEnterUISystem()).
+                Add(new AreaExitUISystem()).
+
+                Add(new AreaDragUiSystem()).
+                Add(new AreaDropUISystem()).
+
+                Add(new AreaClickUiSystem()).
+
+
+                //Генерация шмотки игрока
+                Add(new ItemCreateSystem()).
+
                 Add(new RandomInputSystem()).
 
-
+                Add(new ItemDestroySystem()).
 
                 //ищет все ентити которые содержат ItemComponent и добавляет на них ItemsStatsDictionaryComponent в зависимости от базы предмета
                 Add(new InitItemGenerationSystem()).
+                   //ItemGeneration системы выбирают из ItemsStatsDictionaryComponent нужную стату по индексу и вешают их на предмет
+                   Add(new ItemIncreaseGlobalDamageGenerationSystem()).
 
+                   Add(new ItemFlatHealthGenerationSystem()).
 
-                //ItemGeneration системы выбирают из ItemsStatsDictionaryComponent нужную стату по индексу и вешают их на предмет
-                Add(new ItemIncreaseGlobalDamageGenerationSystem()).
-
-                Add(new ItemFlatHealthGenerationSystem()).
-
-                Add(new ItemIncreasedMovementSpeedGenerationSystem()).
-
-                
-                Add(new EndItemGenerationSystem()).
+                   Add(new ItemIncreasedMovementSpeedGenerationSystem()).
                 //убирает со всех ентити которые содержат ItemComponent UndefinedComponent что останавлтивает генерацию стат на предмете
+                Add(new EndItemGenerationSystem()).
 
 
-
-                //вешает на все ентити которые содержат AllStatsComponent StatsUpdateEvent и AddNewStatEvent что тригерит инициализацию стат
+                //вешает на все ентити которые содержат AllStatsComponent StatsUpdateEvent что тригерит инициализацию стат
                 Add(new InitStatsSystem()).
 
-                
-                
+
                 //Merrige системы собирают со всех обектов статы определенного типа, суммируют их, и записывают новую стату в ентити которая содержит AllStatsComponent проверяя ее индекс
                 Add(new FlatHealthMerrigeSystem()).
 
                 Add(new FlatMovementSpeedMerregeSystem()).
                 Add(new IncreasedMovementSpeedMerregeSystem()).
-
                 Add(new PhysicalFlatDamageMerregeSystem()).
-                
                 Add(new GlobalIncreaseDamageMerrigeSystem()).
-                  
                 Add(new FlatCritMerregeSystem()).
-                 
                 Add(new CritMultiplierMerregeSystem()).
 
 
-
                 //GetTotal системы проверяют есть ли на ентити которая содержит AllStatsComponent обект с "плоской" статой, и если есть добавляет на него TotalComponent этой статы
-                //остальные Total системы с препиской тотал ищут AllStatsComponent и TotalComponent и произвоят опперации с TotalComponent
+                //остальные Total системы ищут AllStatsComponent и TotalComponent и произвоят опперации с TotalComponent
                 Add(new GetTotalHealthSystem()).
-                
-                Add(new GetTotalMovementSpeedSystem()).              
+
+                Add(new GetTotalMovementSpeedSystem()).
                 Add(new IncreasedTotalMovementSpeedSystem()).
 
                 //убирает со всех ентити которые содержат AllStatsComponent StatsUpdateEvent и AddNewStatEvent что останавлтивает инициализацию стат
                 Add(new EndStatsInitSystem()).
 
-        
 
-                Add(new RenderStatsUISystem()).
+                //Собирает сообщение для привязаного к шмотке месседж бокса
+                Add(new RenderStatsSystem()).
 
-                Add(new MessegeBoxDrawUISystem()).
 
-                Add(new RenderMessegeUISystem());
+                //показывает месседжбокс
+                Add(new MessegeBoxShowSystem()).
+                //устанавливает позицию на экране
+                Add(new MessegeBoxPositionSystem()).
+                //прячет месседжбокс
+                Add(new MessegeBoxHideSystem()).
+                
+                Add(new StatBasetSpeedSystem());
 
     }
     private void AddOneFrames()
     {
-        systems.OneFrame<JumpEvent>();
-     
-
-
+        systems.OneFrame<JumpEvent>().
+            OneFrame<ItemAddEvent>().
+            OneFrame<ItemUndefineEvent>().
+            OneFrame<ItemDestroyEvent>();
+          
+                        
     }
     private void Update()
     {

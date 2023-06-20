@@ -5,7 +5,7 @@ sealed class FlatMovementSpeedMerregeSystem : IEcsRunSystem
 {
     private readonly EcsFilter<FlatMovementSpeedComponent,StatGroopComponent>.Exclude<AllStatsComponent> MovementSpeedFilter = null;
 
-    private readonly EcsFilter<AllStatsComponent, StatGroopComponent, AddNewStatEvent> AllStatsFilter = null;
+    private readonly EcsFilter<StatGroopComponent, AllStatsComponent, StatsUpdateEvent> AllStatsFilter = null;
     
     private readonly Dictionary<int, int> movementspeedmodifiers = new Dictionary<int, int>();
 
@@ -19,15 +19,11 @@ sealed class FlatMovementSpeedMerregeSystem : IEcsRunSystem
 
             if (movementspeedmodifiers.TryGetValue(index, out int currentsum))
             {
-
                 movementspeedmodifiers[index] = currentsum + MovementSpeedFilter.Get1(i).FlatMovementSpeed;
-
             }
             else
             {
-
                 movementspeedmodifiers.Add(index, MovementSpeedFilter.Get1(i).FlatMovementSpeed);
-
             }
 
         }
@@ -38,13 +34,11 @@ sealed class FlatMovementSpeedMerregeSystem : IEcsRunSystem
         {
             AllStatsFilter.GetEntity(i).Del<FlatMovementSpeedComponent>();
 
-            int index = AllStatsFilter.Get2(i).StatsIndex;
+            int index = AllStatsFilter.Get1(i).StatsIndex;
 
             if (movementspeedmodifiers.TryGetValue(index, out int movementspeedsum))
             {
-
                 AllStatsFilter.GetEntity(i).Get<FlatMovementSpeedComponent>().FlatMovementSpeed = movementspeedsum;
-
             }
 
         }

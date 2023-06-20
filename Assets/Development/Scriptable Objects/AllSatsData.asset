@@ -15,3 +15,4 @@ MonoBehaviour:
   itemsbases:
   - {fileID: 11400000, guid: af8b56542fa027948904e72d5d0f73f6, type: 2}
   - {fileID: 11400000, guid: 88a85f4dd5fed0d44920753816d0d9e4, type: 2}
+  - {fileID: 11400000, guid: f6969b77fe280784586959d521ef5ec5, type: 2}

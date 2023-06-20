@@ -1,4 +1,7 @@
-internal struct JumpEvent
+using Leopotam.Ecs;
+
+internal struct JumpEvent : IEcsIgnoreInFilter
+
 {
    
 }

@@ -1,4 +1,6 @@
-internal struct DoubleJumpBlockEvent
+using Leopotam.Ecs;
+
+internal struct DoubleJumpBlockEvent : IEcsIgnoreInFilter
 {
 
 }

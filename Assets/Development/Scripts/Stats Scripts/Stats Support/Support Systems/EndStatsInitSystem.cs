@@ -1,5 +1,4 @@
 using Leopotam.Ecs;
-using UnityEngine;
 
 public class EndStatsInitSystem : IEcsRunSystem
 {
@@ -9,9 +8,7 @@ public class EndStatsInitSystem : IEcsRunSystem
         foreach (var i in AllStatsFilter)
         {
             ref var entity = ref AllStatsFilter.GetEntity(i);
-            entity.Del<StatsUpdateEvent>();
-            entity.Del<AddNewStatEvent>();
+            entity.Del<StatsUpdateEvent>();      
         }
     }
-
 }

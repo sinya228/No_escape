@@ -1,4 +1,6 @@
-public struct StatsUpdateEvent 
-{
+using Leopotam.Ecs;
+
+public struct StatsUpdateEvent : IEcsIgnoreInFilter 
+{ 
  
 }
